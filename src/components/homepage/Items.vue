@@ -3,16 +3,19 @@ import { ref } from "vue";
 import ItemCard from "@/components/ItemCard.vue";
 const items = ref([
   {
+    id: 1,
     title: "Mobile UI Kit",
     image: "items-1.jpg",
     category: "Mobile UI Kit",
   },
   {
+    id: 2,
     title: "Online Doctor Consultation",
     image: "items-2.jpg",
     category: "Website UI Kit",
   },
   {
+    id: 3,
     title: "Banking Crypto",
     image: "items-3.jpg",
     category: "Mobile UI Kit",
@@ -26,6 +29,7 @@ const items = ref([
       <ItemCard
         v-for="item in items"
         :key="item.title"
+        :id="item.id"
         :title="item.title"
         :image="item.image"
         :category="item.category"

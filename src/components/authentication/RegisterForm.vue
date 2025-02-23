@@ -1,20 +1,41 @@
 <script setup>
 import { ref } from "vue";
-import Input from "./../../Components/Input.vue";
+import Input from "@/components/Input.vue";
+import axios from "axios";
+import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router";
+
+const userStore = useUserStore();
+const router = useRouter();
 
 const form = ref({
   name: "",
   email: "",
   password: "",
+  title: "Programmer",
 });
 
-const submitForm = () => {
-  console.log(form.value);
-};
+async function register() {
+  try {
+    const response = await axios.post("http://127.0.0.1:8000/api/register", {
+      name: form.value.name,
+      email: form.value.email,
+      password: form.value.password,
+      title: form.value.title,
+    });
+    localStorage.setItem("access_token", response.data.data.access_token);
+    localStorage.setItem("token_type", response.data.data.token_type);
+    userStore.fetchUser();
+    router.push("/");
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+}
 </script>
 
 <template>
-  <form @submit.prevent="submitForm">
+  <form>
     <Input
       v-model="form.name"
       label="Name"
@@ -31,6 +52,7 @@ const submitForm = () => {
       name="email"
     />
     <Input
+      @keyup.enter="register"
       v-model="form.password"
       label="Password"
       placeholder="Type your password"
@@ -40,6 +62,7 @@ const submitForm = () => {
     />
     <div class="mt-6">
       <button
+        @click="register"
         type="button"
         class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-full hover:bg-indigo-700 md:py-2 md:text-lg md:px-10 hover:shadow"
       >

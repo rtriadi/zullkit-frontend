@@ -1,10 +1,26 @@
 <script setup>
 import { RouterLink } from "vue-router";
+import { ref } from "vue";
+
+const show = ref(false);
+const toggleDropdown = () => {
+  show.value = !show.value;
+};
+
+const logout = () => {
+  localStorage.removeItem("token_type");
+  localStorage.removeItem("access_token");
+  window.location.reload();
+};
+
+const props = defineProps({
+  user: Object,
+});
 </script>
 <template>
   <div class="md:order-2">
     <div class="flex items-center">
-      <div class="mr-2 text-sm font-regular">Halo, Rahmat Triadi</div>
+      <div class="mr-2 text-sm font-regular">Halo, {{ user.name }}</div>
       <button
         type="button"
         class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"

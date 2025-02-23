@@ -20,6 +20,16 @@ const router = createRouter({
       component: () => import('../views/RegisterView.vue'),
     },
     {
+      path: '/categories',
+      name: 'categories',
+      component: () => import('../views/CategoriesView.vue'),
+    },
+    {
+      path: '/categories/:id',
+      name: 'category-items',
+      component: () => import('../views/CategoryItemsView.vue'),
+    },
+    {
       path: '/product/:id',
       name: 'product',
       component: () => import('../views/DetailView.vue'),

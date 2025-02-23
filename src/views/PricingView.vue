@@ -2,14 +2,33 @@
 import IconLayers from "@/components/icons/IconLayers.vue";
 import IconBadge from "@/components/icons/IconBadge.vue";
 import IconBook from "@/components/icons/IconBook.vue";
+import { RouterLink } from "vue-router";
+import axios from "axios";
+
+async function checkout(price) {
+  try {
+    const response = await axios.post("http://127.0.0.1:8000/api/checkout", {
+      payment_total: price,
+      payment_status: 'PENDING',
+    },
+      {
+        headers: {
+          'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
+        }
+      }
+    );
+    window.location.href = response.data.data.payment_url;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 </script>
 <template>
   <main>
     <div class="relative overflow-hidden bg-white">
       <div class="mx-auto">
-        <div
-          class="flex flex-col items-center w-full sm:justify-center sm:pt-0"
-        >
+        <div class="flex flex-col items-center w-full sm:justify-center sm:pt-0">
           <div class="w-full p-5 mx-auto mt-10 md:max-w-7xl">
             <h2 class="mb-4 text-5xl font-bold text-center">
               <span class="block lg:mb-2">Friendly Pricing,</span>
@@ -31,52 +50,30 @@ import IconBook from "@/components/icons/IconBook.vue";
                   <p class="mb-6 text-gray-500">Suitable for new team</p>
                   <ul class="mb-6 text-gray-700">
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       Customizable layers
                     </li>
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       Official documentation
                     </li>
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       SVG icons
                     </li>
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       SVG illustrations
                     </li>
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       Pre-built design screen
                     </li>
                   </ul>
-                  <RouterLink
-                    to="/success"
-                    class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-black bg-gray-200 border border-transparent rounded-full hover:bg-gray-300 md:py-2 md:text-md md:px-10 hover:shadow"
-                  >
+                  <button @click="checkout(2000)"
+                    class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-black bg-gray-200 border border-transparent rounded-full hover:bg-gray-300 md:py-2 md:text-md md:px-10 hover:shadow">
                     Checkout Now
-                  </RouterLink>
+                  </button>
                 </div>
               </div>
               <div>
@@ -89,84 +86,46 @@ import IconBook from "@/components/icons/IconBook.vue";
                   <p class="mb-6 text-gray-500">Suitable for big company</p>
                   <ul class="mb-6 text-gray-700">
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       Customizable layers
                     </li>
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       Official documentation
                     </li>
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       SVG icons
                     </li>
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       SVG illustrations
                     </li>
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       Pre-built design screen
                     </li>
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       Coded template
                     </li>
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       Support 24/7
                     </li>
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       Private designer group
                     </li>
                     <li class="mb-3">
-                      <img
-                        src="@/assets/img/icon-check.png"
-                        class="float-left w-6 mr-2"
-                        alt=""
-                      />
+                      <img src="@/assets/img/icon-check.png" class="float-left w-6 mr-2" alt="" />
                       Unlock cloning app
                     </li>
                   </ul>
-                  <RouterLink
-                    to="/success"
-                    class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-full hover:bg-indigo-700 md:py-2 md:text-md md:px-10 hover:shadow"
-                  >
+                  <button @click="checkout(9000)"
+                    class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-full hover:bg-indigo-700 md:py-2 md:text-md md:px-10 hover:shadow">
                     Checkout Now
-                  </RouterLink>
+                  </button>
                 </div>
               </div>
             </div>
